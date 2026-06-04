@@ -16,10 +16,11 @@
 --   • Step 06 : Generated final denormalized audit report tables & cache cleanup.
 -- ==============================================================================
 
-SET @start_date = date({DateTimePicker1});
-SET @stop_date  = date({DateTimePicker2}); 
+SET @start_date = DATE('2026-05-01');
+SET @stop_date  = DATE('2026-05-31');
 SET @h_name = (SELECT opdconfig.hospitalname FROM opdconfig);
 SET @h_code = (SELECT opdconfig.hospitalcode FROM opdconfig);
+SET @script_sql = 'script 2026-06-05 05:26' ;
                         
 -- step 01 uc_export_money                    
 DROP TABLE IF EXISTS uc_export_money;
@@ -259,7 +260,9 @@ SELECT
          ELSE NULL
       END AS service_group_max_cost,          
       
-    CAST(0 AS DECIMAL(10,2)) AS pay_real     
+    CAST(0 AS DECIMAL(10,2)) AS pay_real,
+
+@script_sql as script_sql
                                                                                                 
 FROM uc_export_money_tranform_list
 GROUP BY uc_export_money_tranform_list.vn
@@ -341,7 +344,8 @@ SELECT
     head.c_ucs,
     head.service_group,
     head.service_group_max_cost,
-    head.pay_real
+    head.pay_real,
+		@script_sql as script_sql
 FROM uc_export_money_tranform_list AS list
      INNER JOIN uc_export_money_tranform_list_head AS head 
         ON list.vn = head.vn
