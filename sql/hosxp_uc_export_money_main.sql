@@ -16,8 +16,8 @@
 --   • Step 06 : Generated final denormalized audit report tables & cache cleanup.
 -- ==============================================================================
 
-SET @start_date = DATE('2026-05-01');
-SET @stop_date  = DATE('2026-05-31');
+SET @start_date = date({DateTimePicker1});
+SET @stop_date  = date({DateTimePicker2}); 
 SET @h_name = (SELECT opdconfig.hospitalname FROM opdconfig);
 SET @h_code = (SELECT opdconfig.hospitalcode FROM opdconfig);
                         
