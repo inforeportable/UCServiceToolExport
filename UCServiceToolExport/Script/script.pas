@@ -7,7 +7,7 @@ procedure app_start ;
 var
 url : String;
 RawText : String;
-begin                            
+begin
     Try
         Form1.Caption := app_version ;
         url := 'https://raw.githubusercontent.com/inforeportable/UCServiceToolExport/refs/heads/main/sql/hosxp_uc_export_money_main.sql';
